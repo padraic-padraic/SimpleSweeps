@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+{%block header%}
+  <title>Simple Sweeps</title>
+  <meta name="description" content="Predicting world cup games for fun and profit.">
+  <link id="favicon" rel="icon" href="https://glitch.com/edit/favicon-app.ico" type="image/x-icon">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/style.css">
+  <script src="https://button.glitch.me/button.js"></script>
+  {% endblock %}
+</head>
+  <body>
+    <header style="text-align:center">
+      <div>
+        <h1>
+          ⚽🐙Predictathon!🐙⚽
+        </h1>
+        <em>Or, pretending to be a psychic octopus.</em>
+      </div>
+      <div>
+         <nav>
+          <a href="/" {% if path == "/" %}class="here"{% endif %}>Home</a>
+          <a href="/matches" {% if path == "/matches" %}class="here"{% endif %}>Matches</a>
+          <a href="/predictions" {% if path == "/predictions" %}class="here"{% endif %}>Predictions</a>
+          {% if uname %}
+          <a href="/logout" {% if path == "/logout" %}class="here"{% endif %}>Logout</a>
+          {% else %}
+          <a href="/login" {% if path == "/login" %}class="here"{% endif %}>Login</a>
+          {% endif %}
+        </nav>     
+      </div>
+    </header>
+
+    {% block content %}
+    {% endblock %}
+    {% if not uname and path !="/login" %}
+    <p style="text-align:center; margin-left:auto; margin-right:auto;">
+      <a id="login-link" href="/login">Login</a> to see other people's predictions, and make your own!
+    </p>
+    {% endif %}
+    <div class="spacer">
+     &nbsp
+    </div>
+    <footer>
+      <a href="https://glitch.com/~simple-sweep">
+        View the source in Glitch.
+      </a>
+    </footer>
+    {% block scripts %} <!--Insert page scripts here. -->
+    {% endblock %}
+  </body>
+</html>
+
+

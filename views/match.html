@@ -1,0 +1,239 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section>
+  <div class="day-data">
+    <h2 id="day-1">
+      {{match.datetime}}
+    </h2>
+    <div id="{{match.fifa_id}}" class="match-data" style="margin-bottom: 2%;">
+      <div class="team">
+        <h3>
+          {% if match.home_team.code == "TBD" or not match.home_team.code %}
+            To be decided...</h3>
+          {% else %}
+            {{match.home_team.country}}</h3><p>{{teamToEmoji(match.home_team)}}</p>
+          {% endif %}
+        {% if match.status != "future" %}
+        <p style="text-align:center">
+          {{match.home_team.goals}}
+        </p>
+        {% endif %}
+      </div>
+      <div class="vs-stub">
+        <h3>
+           Vs.
+        </h3>
+      </div>
+      <div class="team">
+        <h3>
+        <h3>
+          {% if match.away_team.code == "TBD" or not match.away_team.code %}
+            To be decided...</h3>
+          {% else %}
+            {{match.away_team.country}}</h3><p>{{teamToEmoji(match.away_team)}}</p>
+          {% endif %}
+        {% if match.status != "future" %}
+        <p style="text-align:center">
+          {{match.away_team.goals}}
+        </p>
+        {% endif %}
+      </div>
+    </div>
+  {% if match.status != "future" %}
+    <div class="match-data">
+      <div class="team">
+        {% if match.home_team.goals == 0 %}
+        &nbsp
+        {% else %}
+         {% for event in match.home_team_events %}
+          {% if event.type_of_event == "goal" or event.type_of_event == "goal-penalty" %}
+          <p>{{event.player}}  :   {{event.time}}</p>
+          {% endif %}
+         {% endfor %}
+        {% endif %}
+      </div>
+      <div class="vs-stub">
+        <h3>
+          &nbsp
+        </h3>
+      </div>
+      <div class="team">
+      {% if match.away_team.goals == 0 %}
+        &nbsp
+        {% else %}
+         {% for event in match.away_team_events %}
+          {% if event.type_of_event == "goal" or event.type_of_event == "goal-penalty" %}
+          <p>{{event.player}}  :   {{event.time}}</p>
+          {% endif %}
+         {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+  {% endif %}
+  {% if match.status == "in progress" %}
+  <div id="details">
+    <div id="time">
+      Started at <span class="game-time">{{match.datetime}}</span>.
+    </div>
+    <div id="detail-link">
+      Game clock: {{match.time}}
+    </div>
+  </div>
+  {% endif %}
+  </div>
+  {% if uname %} <!-- user is logged in -->
+    {% if match.status == "future" %} <!-- show prediction, prediciton form -->
+    <div class="day-data" style="border-bottom:none;">
+      <h2 style="padding-left: 5%;">
+        Your prediction:
+      </h2>
+      {% if groupStage %}
+      <form class="prediction-form" name="prediction-form" action="/predictions" method="post">
+        <div class="match-data">
+          <input type="hidden" name="matchId" value="{{match.fifa_id}}">
+          <div class="team">
+            <label for="homeGoals">
+              <p>
+                {{teamToEmoji(match.home_team)}} scores
+              </p>
+            </label>
+            <select name="homeGoals" required>
+              <option value="">--</option>
+              <option value="0" {% if prediction.homeGoals == 0 %}selected{% endif %}>0</option>
+              <option value="1" {% if prediction.homeGoals == 1 %}selected{% endif %}>1</option>
+              <option value="2" {% if prediction.homeGoals == 2 %}selected{% endif %}>2</option>
+              <option value="3" {% if prediction.homeGoals == 3 %}selected{% endif %}>3</option>
+              <option value="4" {% if prediction.homeGoals == 4 %}selected{% endif %}>4 or more</option>
+            </select>
+          </div>
+          <div class="vs-stub">
+            &nbsp
+          </div>
+          <div class="team">
+            <label for="awayGoals">
+              <p>
+                {{teamToEmoji(match.away_team)}} scores
+              </p>
+            </label>
+            <select name="awayGoals" required>
+              <option value="">--</option>
+              <option value="0" {% if prediction.awayGoals == 0 %}selected{% endif %}>0</option>
+              <option value="1" {% if prediction.awayGoals == 1 %}selected{% endif %}>1</option>
+              <option value="2" {% if prediction.awayGoals == 2 %}selected{% endif %}>2</option>
+              <option value="3" {% if prediction.awayGoals == 3 %}selected{% endif %}>3</option>
+              <option value="4" {% if prediction.awayGoals == 4 %}selected{% endif %}>4 or more</option>
+            </select>
+          </div>
+          <div class="single-button">
+            <button class="button" type="submit">
+              Submit
+            </button>
+          </div>
+        </div>
+      </form>
+      {% else %} <!-- Not group stages; we also need to ask who wins in the event of a draw -->
+      <form class="prediction-form" name = "prediction-form" action="/predictions" method="post">
+        <input type="hidden" name="matchId" value="{{match.fifa_id}}">
+        <div class="match-data">
+          <div class ="single-select">
+            <label for="homeGoals">
+              <p>
+                {% if match.home_team.code =="TBB" %}TBD{%else%}{{teamToEmoji(match.home_team)}}{% endif %} scores
+              </p>
+            </label>
+            <select name="homeGoals" required>
+              <option value="">--</option>
+              <option value="0" {% if prediction.homeGoals == 0 %}selected{% endif %}>0</option>
+              <option value="1" {% if prediction.homeGoals == 1 %}selected{% endif %}>1</option>
+              <option value="2" {% if prediction.homeGoals == 2 %}selected{% endif %}>2</option>
+              <option value="3" {% if prediction.homeGoals == 3 %}selected{% endif %}>3</option>
+              <option value="4" {% if prediction.homeGoals == 4 %}selected{% endif %}>4 or more</option>
+            </select>
+          </div>
+          <div class="single-select">
+            <label for="awayGoals">
+              <p>
+                {% if match.away_team.code =="TBD" %}TBD{%else%}{{teamToEmoji(match.away_team)}}{% endif %} scores
+              </p>
+            </label>
+            <select name="awayGoals" required>
+              <option value="">--</option>
+              <option value="0" {% if prediction.awayGoals == 0 %}selected{% endif %}>0</option>
+              <option value="1" {% if prediction.awayGoals == 1 %}selected{% endif %}>1</option>
+              <option value="2" {% if prediction.awayGoals == 2 %}selected{% endif %}>2</option>
+              <option value="3" {% if prediction.awayGoals == 3 %}selected{% endif %}>3</option>
+              <option value="4" {% if prediction.awayGoals == 4 %}selected{% endif %}>4 or more</option>
+            </select>
+          </div>
+          <div class="single-select">
+            <label for="penalityWinner">
+              <p>Overall Winner:</p>
+            </label>
+            <select name="penaltyWinner" required>
+              <option value="">--</option>
+              <option value="H" {% if prediction.result == 'H' %}selected{% endif %}>{{match.home_team.country}}</option>
+              <option value="A" {% if prediction.result == 'A' %}selected{% endif %}>{{match.away_team.country}}</option>
+            </select>
+          </div>
+          <div class="single-button">
+            <button class="button" type="submit">
+              Submit
+            </button>
+          </div>
+        </div>
+      </form>
+     {% endif %}
+    </div>
+    {% else %} <!-- Show all predictions -->
+       <div class="day-data" style="border-bottom: none;">
+         <h2>
+           Octopus Predictions
+         </h2>
+          <table id="prediction-standings">
+            <thead>
+              <tr>
+                <th><div class="table-wrap">Name</div></th>
+                <th><div class="table-wrap">{{match.home_team.country}}</div></th>
+                <th><div class="table-wrap">{{match.away_team.country}}</div></th>
+                <th><div class="table-wrap">Overall Winner</div></th>
+                <th><div class="table-wrap">Score</div></th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for predictObj in predictions%}
+            {% if predictObj.uname == uname %}
+            <tr class="bold">
+            {% else %}
+            <tr>
+            {% endif %}
+              <td><div class="table-wrap">{{predictObj.name}}</div></td>
+              {%if predictObj.prediction%}
+              <td><div class="table-wrap">{{predictObj.prediction.homeGoals}}</div></td>
+              <td><div class="table-wrap">{{predictObj.prediction.awayGoals}}</div></td>
+              <td><div class="table-wrap">{{resultToTeam(predictObj.prediction.result, match)}}</div></td>
+              <td><div class="table-wrap">{{predictObj.prediction.points}}</div></td>
+              {%else%}
+              <td><div class="table-wrap">-</div></td>
+              <td><div class="table-wrap">-</div></td>
+              <td><div class="table-wrap">N/A</div></td>
+              <td><div class="table-wrap">0</div></td>
+              {% endif %}
+            </tr>
+            </tbody>
+            {% endfor %}
+         </table>
+       </div>
+    {% endif %}
+  {% endif %}
+  <div class="spacer">
+    &nbsp
+  </div>
+</section>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="/matchesFormat.js"></script>
+<script src="/validatePrediction.js"></script>
+{% endblock %}

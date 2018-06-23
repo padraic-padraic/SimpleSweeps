@@ -1,0 +1,437 @@
+/* styles */
+/* called by your view template */
+
+/* You might want to try something fancier: */
+/* less: http://lesscss.org/ */
+
+* {
+  box-sizing: border-box;
+}
+
+html
+{
+  background-color:#ccd6ff;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  font-family: helvetica, arial, sans-serif;
+/*   margin: 25px; */
+  background-color:#ffffff;
+  min-height: 95%;
+  padding: 0px;
+  margin-top:0px;
+  margin-left:auto;
+  margin-right:auto;
+  max-width:1000px;
+}
+
+nav
+{
+  margin-top: 2%;
+}
+
+nav a, .all-link a, #detail-link a
+{
+  color:pink;
+  font-family: helvetica, arial, sans-serif;
+  margin: 5%;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+nav a:hover, .all-link a:hover, #detail-link a:hover
+{
+  color:#ff8095;
+}
+
+#login-link {
+  margin-left: auto;
+  margin-right:auto;
+/*   width: 100%; */
+  color:pink;
+  font-family: helvetica, arial, sans-serif;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+#login-link:hover
+{
+  color:#ff8095;
+}
+
+header {
+  border-bottom: 5px solid;
+  border-color: #ccd6ff;
+}
+
+.here
+{
+    text-decoration: underline;
+    color: #ffb3bf;
+}
+
+h1 {
+  font-weight: bold;
+  color: pink;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.day-data {
+  padding-bottom: 15px;
+  border-bottom: 2px solid;
+  border-color:#ccd6ff;
+  background-color: #fff;
+}
+
+.day-data:last-child {
+  border: none;
+}
+
+.day-data h2 , .day-data p, #rule-div{
+  padding-left: 5%;
+}
+
+.match-data {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#bulk-submit {
+  overflow: visible;
+  -webkit-position: sticky;
+  position: sticky;
+  top:0;
+  z-index: 10;
+  width:100%;
+  max-width: 1000px;
+  text-align:center;
+  padding-top:3%;
+}
+
+#bulk-submit div {
+  z-index:15;
+}
+
+#rule-div {
+  width: 80%;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right:auto;
+/*   padding-right: 10%; */
+}
+
+.team {
+  flex-basis: 40%;
+/*   flex-grow: 3; */
+}
+
+.team h3, .team p {
+  text-align: center;
+}
+
+.vs-stub {
+  flex-basis:20%;
+/*   flex-grow: 2; */
+/*   text-decoration: underline; */
+  font-weight: bold;
+}
+
+.vs-stub h3 {
+  text-align: center;
+}
+
+.single-button {
+  margin-top:5%;
+  flex-basis: 100%;
+}
+
+.single-select {
+  flex-basis: 33%;
+}
+
+#prediction-standings{
+  border-collapse: collapse;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+th {
+  border: 1px solid;
+  border-color: black black #ccd6ff black;
+}
+  
+th, td {
+    padding-top:5%;
+    padding-bottom: 5%;
+    text-align: center;
+    width: 15%;
+}
+
+td:first-child {
+  border: 1px solid;
+  border-color: #ccd6ff #ccd6ff #ccd6ff black;
+}
+
+td:last-child {
+  border: 1px solid;
+  border-color: #ccd6ff black #ccd6ff #ccd6ff;
+}
+
+td {
+  border: 1px solid;
+  border-color: #ccd6ff;
+}
+
+tbody tr:nth-child(odd) {
+  background-color: #ccd6ff;
+}
+
+tr:last-child td {
+    border-color: #ccd6ff #ccd6ff black #ccd6ff;
+}
+
+tr:last-child td:first-child {
+  border-color: #ccd6ff #ccd6ff black black;
+}
+
+tr:last-child td:last-child {
+  border-color: #ccd6ff black black #ccd6ff;
+}
+
+.table-wrap {
+   word-wrap:normal; /*old browsers*/
+   overflow-wrap:normal;
+}
+
+.all-match-data {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.all-team {
+  flex-basis: 35%;
+  flex-grow: 2;
+}
+
+.all-team h3, .all-team p {
+  text-align: center;
+}
+
+.all-vs-stub {
+  flex-basis:20%;
+  font-weight: bold;
+/*   flex-grow: 2; */
+/*   text-decoration: underline; */
+}
+
+.all-vs-stub h3 {
+  text-align: center;
+}
+
+.all-link {
+  flex-basis: 10%;
+  flex-grow: 2;
+/*   padding-left:2%; */
+}
+
+.all-link p {
+  text-align:center;
+}
+
+#details {
+  display: flex;
+  width: 100%;
+  max-width: 1000px;
+}
+
+#time {
+  flex-basis: 50%;
+  padding-left: 10%;
+}
+#detail-link {
+  flex-basis: 50%;
+  text-align: right;
+  padding-right: 10%;
+/*   margin-left: 10%; */
+}
+
+.prediction-form {
+  width: 100%;
+  max-width: 1000px;
+  text-align:center;
+}
+
+/* select {
+  margin-left: 40%;
+} */
+
+p {
+  max-width: 600px;
+}
+
+.login-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.form-block {
+/*   order: 1; */
+  flex-basis: 50%;
+  padding-left:10%;
+}
+
+.form-image {
+/*   order: 2; */
+  flex-basis: 50%;
+  padding-right:10%;
+/*   margin: 5%; */
+}
+
+#octopus {
+  max-height:400px;
+  max-width: 100%;
+}
+
+@media only screen and (max-width: 600px) {
+  nav a {
+    margin: 2%;
+  }
+  h1 {
+    font-size: 1.5em;
+  }
+  .form-image {
+    vertical-align: middle;
+  }
+  .form-block {
+    padding-left: 0px;
+  }
+  td, th {
+    padding-top: 1%;
+    padding-bottom:1%;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .form-image {
+    flex-basis: 100%;
+    order:1;
+  }
+  .form-block {
+    flex-basis: 100%;
+    order:1;
+  }
+  td,th {
+    font-size: 0.5em;
+  }
+}
+    
+
+#login-form {
+/*   margin-bottom: 25px; */
+  padding: 15px;
+  display: inline-block;
+  width: 100%;
+  max-width: 340px;
+  border-radius: 3px;
+}
+
+#login-form input {
+  display: block;
+  margin-bottom: 10px;
+  padding: 5px;
+  width: 100%;
+  border: 1px solid lightgrey;
+  border-radius: 3px;
+  font-size: 16px;
+}
+
+button {
+  font-size: 16px;
+  border-radius: 3px;
+  background-color: lightgrey;
+  border: 1px solid grey;
+  box-shadow: 2px 2px teal;
+  cursor: pointer;
+  -webkit-transition: opacity 1s; /* Safari */
+  transition: opacity 1s;
+}
+
+button:hover {
+  background-color: yellow;
+}
+
+button:active {
+  box-shadow: none;
+}
+
+#form-description {
+  -webkit-transition: opacity 1s;
+  transition: opacity 1s;
+}
+
+.hidden {
+  opacity: 0;
+}
+
+label,input,h3 {
+  -webkit-transition: display 1s;
+  transition: height 0ms 400ms, margin 400ms 0ms, padding 400ms 0ms, opacity 400ms 0ms;
+}
+
+.disabled {
+  overflow: hidden;
+/*   display: none; */
+  height: 0px;
+  margin: 0px;
+  padding: 0px;
+  opacity: 0;
+}
+
+.script-link {
+  text-decoration: underline;
+  color: pink;
+}
+
+.script-link:hover {
+/*   font-weight: bold; */
+  color:#ff8095;
+}
+
+
+li {
+  margin-bottom: 5px;
+}
+
+footer {
+  margin-top: 50px;
+  padding-top: 2%;
+  padding-bottom: 0.5%;
+  border-top: 5px solid;
+  border-top-color: #ccd6ff;
+  position:fixed;
+  background-color: #ffffff;
+  bottom:0%;
+  margin: 0 auto;
+  width:100%;
+  max-width: 1000px;
+}
+
+footer > a {
+  color: #BBBBBB;
+
+}
+
+.nicejob {
+  text-decoration: line-through;
+}
+
+.spacer {
+  min-height: 50px;
+}

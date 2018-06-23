@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+{% block content %}
+    {% if current %}
+        <section>
+          <div class="day-data">
+            <h2>
+              Currently Playing:
+            </h2>
+            <div class="match-data">
+              <div class="team">
+                <h3>
+                  {{current.home_team.country}}
+                </h3>
+                <p>
+                  {{teamToEmoji(current.home_team)}}
+                </p>
+              </div>
+              <div class="vs-stub">
+                <h3>
+                   Vs.
+                </h3>
+              </div>
+              <div class="team">
+                <h3>
+                  {{current.away_team.country}}
+                </h3>
+                <p>
+                  {{teamToEmoji(current.away_team)}}
+                </p>
+              </div>
+              <div class="team">
+
+                <p>
+                  {{current.home_team.goals}}
+                </p>
+              </div>
+              <div class="vs-stub">
+                <p style="text-align: center;">
+                   -
+                </p>
+              </div>
+              <div class="team">
+                <p>
+                  {{current.away_team.goals}}
+                </p>
+              </div>
+            </div>
+            <div id="details">
+              <div id="time">
+                Started at <span class="game-time">{{current.datetime}}</span>.
+              </div>
+              <div id="detail-link">
+                <a href="/matches/{{current.fifa_id}}">See more.</a>
+              </div>
+            </div>
+          </div>
+      {% endif %}
+      {% if next %}
+        <div class="day-data">
+          {% if next == "None" %}
+          <h2>
+            No upcoming games!
+          </h2>
+          {% else %}
+          <h2>
+            Up next:
+          </h2>
+          <div class="match-data">
+            <div class="team">
+                <h3>
+                  {{next.home_team.country}}
+                </h3>
+                <p>
+                  {{teamToEmoji(next.home_team)}}
+                </p>
+            </div>
+            <div class="vs-stub">
+              <h3>
+                 Vs.
+              </h3>
+            </div>
+            <div class="team">
+                <h3>
+                  {{next.away_team.country}}
+                </h3>
+                <p>
+                  {{teamToEmoji(next.away_team)}}
+                </p>
+            </div>
+            <div id="details">
+              <div id="time">
+                Starting at <span class="game-time">{{next.datetime}}</span>.
+              </div>
+              <div id="detail-link">
+                <a href="/matches/{{next.fifa_id}}">See more.</a>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+      {% endif %}
+      {% if not current and not next %}
+      <section class="missing-data">
+        <h2 style="text-align:center"> Couldn't fetch upcoming data? </h2>
+        <h2 style="text-align:center">
+          💣
+        </h2>
+      </section>
+      {% endif %}
+     <section>
+       <div class="day-data">
+         <h2>
+           Octopus Rankings
+         </h2>
+          <table id="prediction-standings">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Total poins</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for user in allUsers %}
+            {% if user.username == uname %}
+            <tr class="bold">
+            {% else %}
+            <tr>
+            {% endif %}
+              <td>{{user.name}}</td>
+              <td>{{user.score}}</td>
+            </tr>
+            </tbody>
+            {% endfor %}
+         </table>
+       </div>
+     </section>
+     <section>
+       <div class="day-data" style="border-bottom: none">
+         <h2>
+           Rules:
+         </h2>
+         <div id="rule-div" style="text-align:center">
+          Each octopus tries to guess the result of the upcoming games. Points are awarded for their guesses as follows.
+           <ul>
+             <li> 3 Points if the winner is picked correctly.</li>
+             <li> 4 Points if you also get <em>one</em> of the team's scores.</li>
+             <li> 5 points if you correctly guess the score difference, or it's a draw.</li>
+             <li> 8 points if you get the final score exactly.</li>
+           </ul>
+          Additionally, in the knock-out stages, octopi are required to pick the overall winner. Points are only awarded if the overall winner is correct.
+           <br>
+           Predictions can be made until a match starts, at which point you'll also be able to see how other users predicted.
+           Scores are updated shortly after a match, so check back regularly.
+         </div>
+     </section>
+{% endblock %}
+
+{% block scripts %}
+<script src="/matchesFormat.js"></script>
+{% endblock scripts %}
