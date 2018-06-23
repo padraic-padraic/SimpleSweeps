@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section>
+{% for day, games in matches %}
+  <div class="day-data">
+    <h2 id="day-{{loop.index}}">
+      {{day}}
+    </h2>
+    {% for game in games %}
+      <p class="game-time" style="flex-basis:100%;">
+      {{game.datetime}}
+      </p>
+      <div id="{{game.fifa_id}}" class="match-data" {%if loop.last %} style="margin-bottom: 2%;" {% endif %}>
+        <div class="all-team">
+        <h3>
+          {% if game.home_team.code == "TBD" or not game.home_team.code %}
+            To be decided...</h3>
+          {% else %}
+            {{game.home_team.country}}</h3><p>{{teamToEmoji(game.home_team)}}</p>
+          {% endif %}
+          {% if game.status == "completed" %}
+          <p style="text-align:center">
+            {{game.home_team.goals}}
+          </p>
+          {% endif %}
+        </div>
+        <div class="all-vs-stub">
+          <h3>
+             Vs.
+          </h3>
+        </div>
+        <div class="all-team">
+          <h3>
+          {% if game.away_team.code == "TBD" or not game.away_team.code %}
+            To be decided...</h3>
+          {% else %}
+            {{game.away_team.country}}</h3><p>{{teamToEmoji(game.away_team)}}</p>
+          {% endif %}
+          {% if game.status == "completed" %}
+          <p style="text-align:center">
+            {{game.away_team.goals}}
+          </p>
+          {% endif %}
+        </div>
+        <div class="all-link">
+          <p>
+            <a href="/matches/{{game.fifa_id}}">See more.</a>
+          </p>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endfor %}
+</section>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="/matchesFormat.js"></script>
+<script type="text/javascript">
+document.getElementById('day-{{upcoming}}').scrollIntoView({
+  behavior: 'smooth'});  
+</script>
+{% endblock %}

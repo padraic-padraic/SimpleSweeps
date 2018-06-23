@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section>
+  <h2 style="margin-bottom:0px; padding-left:5%;">
+      Step this way...
+  </h2>
+  <div class="login-container">
+  <div class="form-block">
+
+    <form action="/login" id="login-form" method="post">
+      <label id="uname-field">
+        <h3>
+          Username:
+        </h3>
+        <input type="text" name="uname">
+      </label>
+      <label name="pword-field">
+        <h3>
+          Password:
+        </h3>
+        <input name="password" type="password">
+      </label>
+      <label id="name-field" class="disabled">
+        <h3 id="name-label" class="disabled">
+          Display Name:
+        </h3>
+        <input id="name-input" class="disabled" type="text" name="name" disabled>
+      </label>
+      <button id="the-button" type="submit" class="button">
+          Login
+      </button>
+    </form>
+    <div id="form-description" style="padding-left: 10%;">
+      <p>
+    Not yet signed up? <br> <span class ="script-link" onclick="formSwap()" id="flavour-text"> Click here to register.</span>
+    </p> 
+    </div>
+  </div>
+  <div class="form-image">
+    <img id="octopus" src="https://cdn.glitch.com/9d53d3df-2e2b-43a9-a3fb-34f7c7eff301%2Fthe-result.jpg?1529181769199">
+  </div>
+</div>
+
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="/formSwap.js"></script>
+{% endblock %}
